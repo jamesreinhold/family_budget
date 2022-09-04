@@ -159,6 +159,23 @@ class User(AbstractUser):
         ),
     )
 
+    income = models.DecimalField(
+        verbose_name=_("Income"),
+        default=0.00,
+        decimal_places=2,
+        max_digits=9,
+        help_text=_("The total amount of income of the user")
+    )
+
+
+    expenses = models.DecimalField(
+        verbose_name=_("Expenses"),
+        default=0.00,
+        decimal_places=2,
+        max_digits=9,
+        help_text=_("The total amount of expenses of the user.")
+    )
+
 
     # region Metadata
     class Meta:
