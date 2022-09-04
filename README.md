@@ -8,7 +8,10 @@ Family budget application built with Django
 License: MIT
 
 
-## Basic Commands
+## Test account
+
+- Username: demouser
+- Password: password2022
 
 ### Setting Up Your Users
 
