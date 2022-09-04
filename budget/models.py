@@ -11,6 +11,7 @@ from .common import NULL_AND_BLANK, BaseModel, Timestampable
 User = get_user_model()
 logger = logging.getLogger(__name__)    
 
+
 class BudgetItem(BaseModel, Timestampable):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -60,7 +61,7 @@ class BudgetItem(BaseModel, Timestampable):
 
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.item_type}: {self.name}"
     
     @property
     def linked_budget(self):
@@ -69,7 +70,10 @@ class BudgetItem(BaseModel, Timestampable):
     
     @property
     def total(self) -> str:
-        return self.quantity * self.cost
+        if self.item_type == "EXPENSE":
+            return self.quantity * self.amount
+        else:
+            return self.amount
     
     @classmethod
     def create(

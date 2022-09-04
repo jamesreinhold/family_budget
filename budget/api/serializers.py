@@ -27,7 +27,7 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
         "of the budget item. Defaults to 1.")
     )
 
-    budget_type = serializers.ChoiceField(
+    item_type = serializers.ChoiceField(
         choices=ModelChoices.BUDGET_ITEM_TYPE,
         default=ModelChoices.BUDGET_ITEM_TYPE_EXPENSES,
         help_text=_("The type of budget item.")
@@ -37,18 +37,19 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
 
     class Meta:
         model = BudgetItem
-        fields = (
-            "id",
-            "user",
-            "budget_type,"
-            "name",
-            "quantity",
-            "amount",
-            "total",
-            "created_at",
-            "updated_at",
-            "linked_to_budget"
-        )
+        fields = "__all__"
+        # fields = (
+        #     "id",
+        #     "user",
+        #     "budget_type,"
+        #     "name",
+        #     "quantity",
+        #     "amount",
+        #     "total",
+        #     "created_at",
+        #     "updated_at",
+        #     "linked_to_budget"
+        # )
         read_only_fields = (
             "id",
             "user",
@@ -71,7 +72,7 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
     
     def create(self, validated_data):
         logger.info(f"{__name__}: Creating a budget item:")
-        if validated_data['titem_typeype'] == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
+        if validated_data['item_type'] == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
             return self.Meta.model.create(
                 user=self.context['request'].user,
                 name=validated_data['name'],
@@ -103,7 +104,7 @@ class BudgetItemResponseSerializer(FriendlyErrorMessagesMixin, serializers.Model
 
     class Meta:
         model = BudgetItem
-        fields = ("name", "cost", "quantity")
+        fields = ("name", "item_type", "amount", "quantity")
     
 
 class BudgetSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):

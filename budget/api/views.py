@@ -33,13 +33,19 @@ class BudgetItemViewSet(
     Create a Budget Item
 
     This endpoint allows you to create a new Budget Item by an authenticated user.
-    """
 
+    **Search fields**:
+    You can search by `name` and `type`
+    """
     queryset = BudgetItem.objects.all()
     lookup_field = "budget_item_id"
     lookup_value_regex = "[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"
     serializer_class = BudgetItemSerializer
     permission_classes = [IsAuthenticated]
+    search_fields = (
+        "name", "type"
+    )
+    filter_fields = []
 
     # def get_permissions(self):
     #     """
