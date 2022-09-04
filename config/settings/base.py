@@ -1,17 +1,18 @@
 """
 Base settings to build other settings files upon.
 """
+
 from pathlib import Path
 
 import environ
+from .apps import *
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # family_budget/
 APPS_DIR = ROOT_DIR / "family_budget"
 env = environ.Env()
 
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
+if READ_DOT_ENV_FILE := env.bool("DJANGO_READ_DOT_ENV_FILE", default=False):
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR / ".env"))
 
@@ -58,37 +59,6 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
-# APPS
-# ------------------------------------------------------------------------------
-DJANGO_APPS = [
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.sites",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
-    "django.contrib.admin",
-    "django.forms",
-]
-THIRD_PARTY_APPS = [
-    "crispy_forms",
-    "crispy_bootstrap5",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "rest_framework",
-    "rest_framework.authtoken",
-    "corsheaders",
-    "drf_spectacular",
-]
-
-LOCAL_APPS = [
-    "family_budget.users",
-    "budget"
-]
-# https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------
@@ -311,5 +281,3 @@ SPECTACULAR_SETTINGS = {
         {"url": "https://family.com", "description": "Production server"},
     ],
 }
-# Your stuff...
-# ------------------------------------------------------------------------------
