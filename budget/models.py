@@ -2,19 +2,21 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .choices import BUDGET_CATEGORY, BUDGET_CATEGORY_GENERAL
+from .choices import ModelChoices
 from .common import NULL_AND_BLANK, BaseModel, Timestampable
 
 
 class BudgetItem(BaseModel, Timestampable):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        editable=False
     )
 
     name = models.CharField(
         max_length=20, 
-        help_text=_("The name of the budget item")
+        help_text=_("The name of the budget item"),
+        unique=True,
     )
 
     cost = models.DecimalField(
@@ -34,7 +36,8 @@ class BudgetItem(BaseModel, Timestampable):
 
     linked_to_budget = models.BooleanField(
         default=False,
-        help_text=_("A flag to determine if budget item is linked to a budget.")
+        help_text=_("A flag to determine if budget item is linked to a budget."),
+        editable=False
     )
 
     #Metadata
@@ -62,8 +65,8 @@ class Budget(models.Model):
 
     category = models.CharField(
         max_length=14,
-        choices=BUDGET_CATEGORY,
-        default=BUDGET_CATEGORY_GENERAL,
+        choices=ModelChoices.BUDGET_CATEGORY,
+        default=ModelChoices.BUDGET_CATEGORY_GENERAL,
         help_text=_("The category of the budget")
     )
 
