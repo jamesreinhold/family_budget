@@ -18,7 +18,7 @@ def on_budget_item_created(sender, instance, created, args, **kwargs):
     if created:
         with db_transaction.atomic():
             user = User.objects.select_for_update().get(user=instance.user)
-            if instance.type == ModelChoices.BUDGET_ITEM_TYPE_INCOME:
+            if instance.item_type == ModelChoices.BUDGET_ITEM_TYPE_INCOME:
                 logger.info(f"{__name__}: Updating income...")
                 user.income += instance.total
             else:
@@ -36,7 +36,7 @@ def on_budget_item_created(sender, instance, args, **kwargs):
     logger.info(f"{__name__}: Handling pre_delete signal...")
     with db_transaction.atomic():
         user = User.objects.select_for_update().get(user=instance.user)
-        if instance.type == ModelChoices.BUDGET_ITEM_TYPE_INCOME:
+        if instance.item_type == ModelChoices.BUDGET_ITEM_TYPE_INCOME:
             logger.info(f"{__name__}: Updating income...")
             user.income -= instance.total
         else:

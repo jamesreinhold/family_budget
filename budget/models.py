@@ -18,7 +18,7 @@ class BudgetItem(BaseModel, Timestampable):
         editable=False
     )
 
-    type = models.CharField(
+    item_type = models.CharField(
         max_length=7,
         choices=ModelChoices.BUDGET_ITEM_TYPE,
         default=ModelChoices.BUDGET_ITEM_TYPE_EXPENSES,
@@ -78,7 +78,7 @@ class BudgetItem(BaseModel, Timestampable):
         name:str, 
         amount:float, 
         quantity:int=None, 
-        type:str=ModelChoices.BUDGET_ITEM_TYPE_EXPENSES):
+        item_type:str=ModelChoices.BUDGET_ITEM_TYPE_EXPENSES):
         """
         Creates a Budget Item
 
@@ -87,14 +87,14 @@ class BudgetItem(BaseModel, Timestampable):
             name (str): The name of the budget item
             amount (float): The amount of the budget item
             quantity (int, optional): The quantity of the budget item if type is an expense
-            type (str, optional): The type of the budget item. Defaults to ModelChoices.BUDGET_ITEM_TYPE_EXPENSES.
+            item_type (str, optional): The type of the budget item. Defaults to ModelChoices.BUDGET_ITEM_TYPE_EXPENSES.
         """
-        logger.info(f"Create a budget item: {type}")
-        if type == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
+        logger.info(f"Create a budget item: {item_type}")
+        if item_type == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
             return cls.objects.create(user=user, name=name, quantity=quantity, amount=amount)
 
         else:
-            return cls.objects.create(user=user, name=name, amount=amount, type="INCOME")
+            return cls.objects.create(user=user, name=name, amount=amount, item_type="INCOME")
 
 
 

@@ -27,6 +27,12 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
         "of the budget item. Defaults to 1.")
     )
 
+    budget_type = serializers.ChoiceField(
+        choices=ModelChoices.BUDGET_ITEM_TYPE,
+        default=ModelChoices.BUDGET_ITEM_TYPE_EXPENSES,
+        help_text=_("The type of budget item.")
+    )
+
     total = serializers.SerializerMethodField()
 
     class Meta:
@@ -34,6 +40,7 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
         fields = (
             "id",
             "user",
+            "budget_type,"
             "name",
             "quantity",
             "amount",
@@ -64,7 +71,7 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
     
     def create(self, validated_data):
         logger.info(f"{__name__}: Creating a budget item:")
-        if validated_data['type'] == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
+        if validated_data['titem_typeype'] == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
             return self.Meta.model.create(
                 user=self.context['request'].user,
                 name=validated_data['name'],
@@ -75,7 +82,7 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
                 user=self.context['request'].user,
                 name=validated_data['name'],
                 amount=validated_data['amount'],
-                type=ModelChoices.BUDGET_ITEM_TYPE_INCOME
+                item_type=ModelChoices.BUDGET_ITEM_TYPE_INCOME
             )
 
 
