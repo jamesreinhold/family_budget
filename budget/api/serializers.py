@@ -48,7 +48,15 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
         return value
     
     def create(self, validated_data):
-        return super().create(validated_data)
+        logger.info(f"{__name__}: Creating a budget item:")
+        budget_item = self.Meta.model.objects.create(
+            user=self.context['request'].user,
+            name=validated_data['name'],
+            quantity=validated_data['quantity'],
+            cost=validated_data['cost']
+        )
+        logger.info(f"{__name__}: Budget item created successfully!")
+        return budget_item
 
 
 
