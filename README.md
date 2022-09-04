@@ -12,6 +12,7 @@ License: MIT
 
 - Username: demouser
 - Password: password2022
+- Email: budget@family.com
 
 ### Setting Up Your Users
 
