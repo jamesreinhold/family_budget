@@ -8,6 +8,6 @@ class UsersConfig(AppConfig):
 
     def ready(self):
         try:
-            import family_budget.users.signals  # noqa F401
+            import family_budget.users.receivers  # noqa F401
         except ImportError:
             pass

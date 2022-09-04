@@ -25,7 +25,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "family_budget.users",
+    "family_budget.users.apps.UsersConfig",
     "budget"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

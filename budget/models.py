@@ -1,12 +1,12 @@
+import logging
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-import logging
 
 from .choices import ModelChoices
 from .common import NULL_AND_BLANK, BaseModel, Timestampable
-
-from django.contrib.auth import get_user_model
 
 User = get_user_model()
 logger = logging.getLogger(__name__)    
