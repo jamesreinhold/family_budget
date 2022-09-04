@@ -7,10 +7,12 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from budget.common import NULL_AND_BLANK
+
 logger = logging.getLogger(__name__)
 
 
-NULL_AND_BLANK = {'null': True, 'blank': True}
+
 
 
 class User(AbstractUser):
