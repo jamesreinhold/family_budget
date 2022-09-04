@@ -32,6 +32,11 @@ class BudgetItem(BaseModel, Timestampable):
         "of the budget item. Defaults to 1.")
     )
 
+    linked_to_budget = models.BooleanField(
+        default=False,
+        help_text=_("A flag to determine if budget item is linked to a budget.")
+    )
+
     #Metadata
     class Meta :
         verbose_name = _("Budget Item")
@@ -41,6 +46,12 @@ class BudgetItem(BaseModel, Timestampable):
 
     def __str__(self) -> str:
         return self.name
+    
+    @property
+    def linked_budget(self):
+        """Returns list of budgets item is/are linked"""
+        pass
+
 
 
 class Budget(models.Model):
