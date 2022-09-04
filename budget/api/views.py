@@ -11,7 +11,7 @@ from rest_framework.mixins import (
     RetrieveModelMixin,
     UpdateModelMixin,
 )
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -39,16 +39,17 @@ class BudgetItemViewSet(
     lookup_field = "budget_item_id"
     lookup_value_regex = "[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"
     serializer_class = BudgetItemSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action in ["list"]:
-            permission_classes = [IsAdminUser]
-        else:
-            permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action in ["destroy"]:
+    #         permission_classes = [IsAdminUser]
+    #     else:
+    #         permission_classes = [IsAuthenticated]
+    #     return [permission() for permission in permission_classes]
 
     def get_object(self, queryset=None):
         return BudgetItem.objects.filter(pk=self.kwargs["budget_item_id"]).first()
@@ -130,16 +131,17 @@ class BudgetViewSet(
     lookup_field = "budget_id"
     lookup_value_regex = "[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}"
     serializer_class = BudgetSerializer
+    permission_classes = [IsAuthenticated]
 
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.action in ["list"]:
-            permission_classes = [IsAdminUser]
-        else:
-            permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     """
+    #     Instantiates and returns the list of permissions that this view requires.
+    #     """
+    #     if self.action in ["list"]:
+    #         permission_classes = [IsAdminUser]
+    #     else:
+    #         permission_classes = [IsAuthenticated]
+    #     return [permission() for permission in permission_classes]
 
     def get_object(self, queryset=None):
         return Budget.objects.filter(pk=self.kwargs["budget_id"]).first()

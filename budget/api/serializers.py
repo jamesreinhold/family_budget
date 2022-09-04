@@ -27,15 +27,30 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
         "of the budget item. Defaults to 1.")
     )
 
+    total = serializers.SerializerMethodField()
+
     class Meta:
         model = BudgetItem
-        fields = "__all__"
+        fields = (
+            "id",
+            "user",
+            "name",
+            "quantity",
+            "amount",
+            "total",
+            "created_at",
+            "updated_at",
+            "linked_to_budget"
+        )
         read_only_fields = (
             "id",
             "user",
             "created_at",
             "updated_at"
         )
+    
+    def get_total(self, obj):
+        return obj.total
     
     def validate_name(self, value):
         if item_exist := self.Meta.model.objects.filter(name__iexact=value).exists():
@@ -49,14 +64,19 @@ class BudgetItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializ
     
     def create(self, validated_data):
         logger.info(f"{__name__}: Creating a budget item:")
-        budget_item = self.Meta.model.objects.create(
-            user=self.context['request'].user,
-            name=validated_data['name'],
-            quantity=validated_data['quantity'],
-            cost=validated_data['cost']
-        )
-        logger.info(f"{__name__}: Budget item created successfully!")
-        return budget_item
+        if validated_data['type'] == ModelChoices.BUDGET_ITEM_TYPE_EXPENSES:
+            return self.Meta.model.create(
+                user=self.context['request'].user,
+                name=validated_data['name'],
+                quantity=validated_data['quantity'],
+                amount=validated_data['amount']
+            )
+        return self.Meta.model.create(
+                user=self.context['request'].user,
+                name=validated_data['name'],
+                amount=validated_data['amount'],
+                type=ModelChoices.BUDGET_ITEM_TYPE_INCOME
+            )
 
 
 
