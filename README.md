@@ -14,6 +14,12 @@ License: MIT
 - Password: password2022
 - Email: budget@family.com
 
+## Demo
+
+- Deployed service: [Family Budget](https://family-budget-app-api.herokuapp.com/)
+- API Documentation: [Family Budget API](https://family-budget-app-api.herokuapp.com/documentation)
+
+
 ### Setting Up Your Users
 
 -   To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
