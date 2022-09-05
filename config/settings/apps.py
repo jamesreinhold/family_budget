@@ -16,12 +16,13 @@ THIRD_PARTY_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
-    # "allauth.socialaccount",
+    "allauth.socialaccount",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
     'drf_yasg',
     'rest_framework_simplejwt',
+    'django_filters',
 ]
 
 LOCAL_APPS = [

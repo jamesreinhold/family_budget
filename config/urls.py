@@ -17,9 +17,18 @@ from rest_framework_simplejwt.views import (
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
+      title="Family budget API",
       default_version='v1',
-      description="Test description",
+      description="""
+      This is a Family budget app.
+
+      As a registered user, you are able to add a budget item which is either an `INCOME` or `EXPENSE`
+      Based on the budget items you are able to see how much you have spent or earned.
+
+      You can also create a Budget sheet.
+
+      A budget sheet can contain a list of Budget items which can either be `INCOME` or an `EXPENSE`
+      """,
       terms_of_service="https://www.google.com/policies/terms/",
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),

@@ -98,7 +98,6 @@ SWAGGER_SETTINGS = {
     'FILTER': True,
     'WITH_CREDENTIALS': True,
     'PERSIST_AUTHORIZATION': True,
-    'DEFAULT_INFO': 'config.admin_api_urls',
     'COMPONENT_SPLIT_REQUEST': True,
     'HIDE_HOSTNAME': False,
     'PATH_IN_MIDDLE': False,

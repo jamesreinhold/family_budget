@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from rest_framework import serializers
 from rest_framework_friendly_errors.mixins import FriendlyErrorMessagesMixin
 
@@ -107,7 +108,21 @@ class BudgetItemResponseSerializer(FriendlyErrorMessagesMixin, serializers.Model
         fields = ("name", "item_type", "amount", "quantity")
     
 
-class BudgetSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
+    def validate_name(self, value):
+        if budget_exist := self.Meta.model.objects.filter(name__iexact=value).exists():
+            self.register_error(
+                error_message="A budget already exists with this name.",
+                error_code="name_already_exist",
+                field_name="name"
+            )
+        
+        return value
+
+    def create(self, validated_data):
+        return super().create(validated_data)
+    
+
+class BudgetSerializer(WritableNestedModelSerializer):
     name = serializers.CharField(
         min_length=2,
         max_length=20, 
@@ -124,7 +139,10 @@ class BudgetSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Budget
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = (
+            "user",
+        )
     
     def validate_name(self, value):
         if budget_exist := self.Meta.model.objects.filter(name__iexact=value).exists():
@@ -137,4 +155,13 @@ class BudgetSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
+        logger.info("Creating a budget sheet...")
+        print("Validated data:", validated_data['budget_items'])
+        budget_items = validated_data['budget_items']
+        for budget_item in budget_items:
+            budget_item = dict(budget_item)
+        budget_sheet = self.Meta.model.objects.create(
+            # user=self.context['request'].user,
+            name=validated_data['name']
+        )
         return super().create(validated_data)

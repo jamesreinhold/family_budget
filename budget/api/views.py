@@ -3,7 +3,7 @@ import logging
 
 from django.http.response import Http404
 from django.utils.translation import gettext_lazy as _
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.mixins import (
     CreateModelMixin,
     DestroyModelMixin,
@@ -16,8 +16,10 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from budget.models import Budget, BudgetItem
+from helpers.filters import BudgetItemFilter
 
 from .serializers import BudgetItemSerializer, BudgetSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 logger = logging.getLogger(__name__)
 
@@ -33,9 +35,6 @@ class BudgetItemViewSet(
     Create a Budget Item
 
     This endpoint allows you to create a new Budget Item by an authenticated user.
-
-    **Search fields**:
-    You can search by `name` and `type`
     """
     queryset = BudgetItem.objects.all()
     lookup_field = "budget_item_id"
@@ -45,7 +44,9 @@ class BudgetItemViewSet(
     search_fields = (
         "name", "type"
     )
-    filter_fields = []
+    ordering_fields = ['created_at', 'updated_at']
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filterset_class = BudgetItemFilter
 
     # def get_permissions(self):
     #     """
@@ -65,6 +66,9 @@ class BudgetItemViewSet(
         List Budget Items
 
         Endpoints retrieves the list of Budget Items.
+        
+        **Search fields**:
+        You can search and filter by `name` and `type`
         """
         return super(BudgetItemViewSet, self).list(request, *args, **kwargs)
 
