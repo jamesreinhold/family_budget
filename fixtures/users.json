@@ -1,0 +1,28 @@
+[
+{
+    "model": "users.user",
+    "pk": "359db0ad-b70a-43d3-b254-a01138ac6d07",
+    "fields": {
+        "password": "argon2$argon2id$v=19$m=102400,t=2,p=8$UEZMTHpJS0lJYzVYR2FsOXdaN0dXdg$jRUdoAHMFDIypqEYb5SHchVLnjZWwWZdTmORRH+2fmU",
+        "last_login": "2022-09-05T13:44:47.331Z",
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true,
+        "first_name": "Demo",
+        "last_name": "User",
+        "name": "Demo User",
+        "username": "demouser",
+        "email": "budget@family.com",
+        "email_verified": false,
+        "date_joined": "2022-09-04T12:39:08.841Z",
+        "last_failed_login": null,
+        "last_password_change": null,
+        "password_change_at": null,
+        "updated_at": "2022-09-04T17:11:37.707Z",
+        "income": "2994.00",
+        "expenses": "0.00",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

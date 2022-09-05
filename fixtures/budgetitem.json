@@ -1,0 +1,44 @@
+[
+{
+    "model": "budget.budgetitem",
+    "pk": "3c873743-0579-4fd4-a891-d3784e1f7375",
+    "fields": {
+        "created_at": "2022-09-04T17:11:37.699Z",
+        "updated_at": "2022-09-04T17:11:37.700Z",
+        "user": "359db0ad-b70a-43d3-b254-a01138ac6d07",
+        "item_type": "INCOME",
+        "name": "Weekly Allowances",
+        "amount": "1000.00",
+        "quantity": 0,
+        "linked_to_budget": false
+    }
+},
+{
+    "model": "budget.budgetitem",
+    "pk": "bba9d38c-6656-4516-93ea-945ab9eb6876",
+    "fields": {
+        "created_at": "2022-09-04T17:11:08.089Z",
+        "updated_at": "2022-09-04T17:11:08.089Z",
+        "user": "359db0ad-b70a-43d3-b254-a01138ac6d07",
+        "item_type": "INCOME",
+        "name": "Bonus Earnings",
+        "amount": "1000.00",
+        "quantity": 0,
+        "linked_to_budget": false
+    }
+},
+{
+    "model": "budget.budgetitem",
+    "pk": "beeddeac-dad3-4fc2-8b8f-19ec5d27b2f3",
+    "fields": {
+        "created_at": "2022-09-04T17:09:52.702Z",
+        "updated_at": "2022-09-04T17:09:52.702Z",
+        "user": "359db0ad-b70a-43d3-b254-a01138ac6d07",
+        "item_type": "INCOME",
+        "name": "Salary",
+        "amount": "994.00",
+        "quantity": 0,
+        "linked_to_budget": false
+    }
+}
+]
