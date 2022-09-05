@@ -252,8 +252,8 @@ SOCIALACCOUNT_FORMS = {"signup": "family_budget.users.forms.UserSocialSignupForm
 # django-compressor
 # ------------------------------------------------------------------------------
 # https://django-compressor.readthedocs.io/en/latest/quickstart/#installation
-INSTALLED_APPS += ["compressor"]
-STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
+# INSTALLED_APPS += ["compressor"]
+# STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 # django-rest-framework
 # -------------------------------------------------------------------------------
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
@@ -268,15 +268,6 @@ REST_FRAMEWORK = {
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
 CORS_URLS_REGEX = r"^/api/.*$"
 
-# By Default swagger ui is available only to admin user(s). You can change permission classes to change that
-# See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
-SPECTACULAR_SETTINGS = {
-    "TITLE": "Family Budget App API",
-    "DESCRIPTION": "Documentation of API endpoints of Family Budget App",
-    "VERSION": "1.0.0",
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
-    "SERVERS": [
-        {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
-        {"url": "https://family.com", "description": "Production server"},
-    ],
-}
+
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = False
