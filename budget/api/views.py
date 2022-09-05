@@ -35,6 +35,14 @@ class BudgetItemViewSet(
     Create a Budget Item
 
     This endpoint allows you to create a new Budget Item by an authenticated user.
+
+    A budget item can be either an INCOME or EXPENSE.
+
+    **Adding an Income**:
+    When adding an income, quantity is not required.
+
+    **Adding an Expense**:
+    When adding an income, quantity is optional and defaults to 1. 
     """
     queryset = BudgetItem.objects.all()
     lookup_field = "budget_item_id"
