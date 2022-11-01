@@ -24,4 +24,4 @@ djangorestframework-simplejwt # https://django-rest-framework-simplejwt.readthed
 drf-friendly-errors==0.14    # https://github.com/FutureMind/drf-friendly-errors
 django-filter==22.1
 drf-writable-nested
-django-ses==3.1.0   #   https://github.com/django-ses/django-ses
+django-ses==3.2.2   #   https://github.com/django-ses/django-ses
